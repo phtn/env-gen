@@ -1,13 +1,34 @@
+#!/usr/bin/env bun
 import { basename, dirname, join, resolve } from "node:path";
 import { unlink } from "node:fs/promises";
+import pkg from "./package.json";
+
+const usage = `usage: env-gen <file.ts> [--prefix=PUBLIC_]
+
+Prints .env variables for every top-level object declared in <file.ts>.
+
+options:
+  --prefix=<str>  prefix for every variable (default: PUBLIC_, use --prefix= for none)
+  -h, --help      show this help
+  -v, --version   show version`;
 
 const args = Bun.argv.slice(2);
+
+if (args.includes("-h") || args.includes("--help")) {
+  console.log(usage);
+  process.exit(0);
+}
+if (args.includes("-v") || args.includes("--version")) {
+  console.log(pkg.version);
+  process.exit(0);
+}
+
 const prefixArg = args.find((a) => a.startsWith("--prefix="));
 const prefix = prefixArg ? prefixArg.slice("--prefix=".length) : "PUBLIC_";
-const input = args.find((a) => !a.startsWith("--"));
+const input = args.find((a) => !a.startsWith("-"));
 
 if (!input) {
-  console.error("usage: bun index.ts <file.ts> [--prefix=PUBLIC_]");
+  console.error(usage);
   process.exit(1);
 }
 

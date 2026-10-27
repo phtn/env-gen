@@ -1,11 +1,36 @@
 {
-  "name": "env-gen",
-  "module": "index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "name": "@beastjs/env-gen",
+  "version": "0.1.0",
+  "description": "Convert config objects in a TypeScript file (e.g. firebaseConfig) into .env variables",
+  "keywords": [
+    "env",
+    "dotenv",
+    "environment-variables",
+    "config",
+    "firebase",
+    "cli",
+    "bun"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   },
-  "peerDependencies": {
+  "type": "module",
+  "module": "index.ts",
+  "bin": {
+    "env-gen": "index.ts"
+  },
+  "files": [
+    "index.ts"
+  ],
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "scripts": {
+    "start": "bun index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
     "typescript": "^7"
   }
 }
